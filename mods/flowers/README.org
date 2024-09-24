@@ -1,0 +1,11 @@
+#+TITLE: flower textures
+
+This flower texture is a copy. Original files is https://github.com/minetest/minetest_game/blob/master/mods/flowers/textures/flowers_rose.png .
+
+* Authors of media (textures)
+
+** RHRhino (CC BY-SA 3.0):
+
+- flowers_rose.png
+
+
