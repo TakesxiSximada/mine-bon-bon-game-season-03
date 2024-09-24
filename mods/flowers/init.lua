@@ -42,13 +42,27 @@ minetest.register_chatcommand("flower", {
        local dir = player:get_look_dir() -- プレイヤーの見ている方向を取得
        local target_pos = vector.add(pos, vector.round(dir))  -- プレイヤーの正面1ブロックの座標を特定
 
-       -- 目標位置が空気か確認
-       if minetest.get_node(target_pos).name ~= "air" then
-           return false, "The specified location is not air."
+       -- 50個の花を配置
+       for i = 1, 5000 do
+           -- ランダムな方向と距離を指定して目標位置を決定
+           local offset = {
+               x = math.random(-30, 30),
+               y = math.random(-3, 5),
+               z = math.random(-30, 30)
+           }
+           local flower_pos = vector.add(target_pos, offset)
+	   local flower_floor = vector.add(flower_pos, {x = 0, y = -1, z = 0 })
+	   minetest.log(minetest.get_node(flower_floor).name)
+
+           -- 目標位置の床が空気ではなく、かつ目標位置が空気の場合、花を設置する。
+           if minetest.get_node(flower_floor).name ~= "air" then
+	      if minetest.get_node(flower_pos).name == "air" then
+		 -- 薔薇を設置
+		 minetest.set_node(flower_pos, {name = "flowers:flower_rose"})
+	      end
+	   end
        end
 
-       -- 薔薇を設置
-       minetest.set_node(target_pos, {name = "flowers:flower_rose"})
-       return true, "Okay"
+       return true, "done!!"
     end
 })
